@@ -36,12 +36,10 @@ export default function App() {
 
             moviesSessions.then(resposta => {
                 setMovieSession(resposta.data);
-                alert("entrou")
                 console.log("resposta API: ", resposta.data)
             })
 
             moviesSessions.catch(erro => {
-                alert("erro")
                 console.log("erro seção:", erro.response.data)
             })
         }

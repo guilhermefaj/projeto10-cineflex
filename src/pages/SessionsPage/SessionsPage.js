@@ -3,43 +3,47 @@ import styled from "styled-components"
 export default function SessionsPage({ movieSession }) {
     const { id, title, posterURL, days } = movieSession;
 
-    return (
-        <PageContainer>
-            Selecione o horário
+    if (!days) {
+        return;
+    } else {
+        return (
+            <PageContainer>
+                Selecione o horário
 
-            <div>
-                <SessionContainer>
-                    Sexta - 03/03/2023
-                    <ButtonsContainer>
-                        <button>14:00</button>
-                        <button>15:00</button>
-                    </ButtonsContainer>
-                </SessionContainer>
-            </div>
-
-            {days.map((filme) => (
                 <div>
                     <SessionContainer>
-                        {filme.weekday} - {filme.date}
+                        Sexta - 03/03/2023
                         <ButtonsContainer>
-                            <button>{filme.showtimes[0].name}</button>
-                            <button>{filme.showtimes[1].name}</button>
+                            <button>14:00</button>
+                            <button>15:00</button>
                         </ButtonsContainer>
                     </SessionContainer>
                 </div>
-            ))}
 
-            <FooterContainer>
-                <div>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
-                </div>
-                <div>
-                    <p>Tudo em todo lugar ao mesmo tempo</p>
-                </div>
-            </FooterContainer>
+                {days.map((filme) => (
+                    <div>
+                        <SessionContainer>
+                            {filme.weekday} - {filme.date}
+                            <ButtonsContainer>
+                                <button>{filme.showtimes[0].name}</button>
+                                <button>{filme.showtimes[1].name}</button>
+                            </ButtonsContainer>
+                        </SessionContainer>
+                    </div>
+                ))}
 
-        </PageContainer>
-    )
+                <FooterContainer>
+                    <div>
+                        <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster" />
+                    </div>
+                    <div>
+                        <p>Tudo em todo lugar ao mesmo tempo</p>
+                    </div>
+                </FooterContainer>
+
+            </PageContainer>
+        )
+    }
 }
 
 const PageContainer = styled.div`
