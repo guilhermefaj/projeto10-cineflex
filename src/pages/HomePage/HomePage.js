@@ -1,29 +1,30 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
-export default function HomePage() {
+export default function HomePage({ movies, setMovieId }) {
+    const { id, title, posterURL, overview, releaseDate } = movies
+
+    function selectedMovie(idFilme) {
+        setMovieId(idFilme)
+    }
+
     return (
         <PageContainer>
             Selecione o filme
-
             <ListContainer>
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
-
-                <MovieContainer>
-                    <img src={"https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"} alt="poster"/>
-                </MovieContainer>
+                {movies.map((item, i) => (
+                    <MovieContainer>
+                        <Link to={`/sessoes/${item.id}`}>
+                            <img
+                                onClick={() => selectedMovie(item.id)}
+                                src={item.posterURL}
+                                alt={item.title}
+                            />
+                        </Link>
+                    </MovieContainer>
+                ))}
             </ListContainer>
-
-        </PageContainer>
+        </PageContainer >
     )
 }
 
@@ -57,5 +58,7 @@ const MovieContainer = styled.div`
     img {
         width: 130px;
         height: 190px;
+        border-radius: 5px;
+        margin-top: 4px;
     }
 `
