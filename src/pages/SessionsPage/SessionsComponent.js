@@ -7,9 +7,9 @@ export default function SessionsComponent(props) {
 
 
     return (
-        < SessionContainer >
+        < SessionContainer>
             {filme.weekday} - {filme.date}
-            < ButtonsContainer >
+            < ButtonsContainer>
                 <Link to={`/assentos/${filme.showtimes[0].id}`}>
                     <button>{filme.showtimes[0].name}</button>
                 </Link>

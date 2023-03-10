@@ -15,7 +15,7 @@ export default function SeatsComponent({ seat }) {
 
     return (
         <SeatItem
-            key={seat.id}
+            key={seat.name}
             onClick={() => seatClick(seat)}
             selectedSeat={selectedSeat}
             isAvailable={seat.isAvailable}
@@ -27,7 +27,7 @@ export default function SeatsComponent({ seat }) {
 
 const SeatItem = styled.div`
     border: 1px solid blue;         // Essa cor deve mudar
-    background-color: ${props => props.selectedSeat ? (props.isAvailable ? selecionado : indisponivel) : disponivel};    // Essa cor deve mudar
+    background-color: ${props => props.selectedSeat ? (props.isAvailable ? selecionado : indisponivel) : (props.isAvailable ? disponivel : indisponivel)};    // Essa cor deve mudar
     height: 25px;
     width: 25px;
     border-radius: 25px;
