@@ -3,13 +3,19 @@ import { useState } from "react"
 import { selecionado, selecionadoBorda, disponivel, disponivelBorda, indisponivel, indisponivelBorda } from "../../constants";
 
 export default function SeatsComponent({ seat }) {
-    const [selectedSeat, setSelectedSeat] = useState(undefined)
+    const [selectedSeatColor, setSelectedSeatColor] = useState(undefined)
 
+    console.log(selectedSeatColor)
     function seatClick(seat) {
+        if (selectedSeatColor !== undefined) {
+            setSelectedSeatColor(undefined);
+            return;
+        }
+
         if (seat.isAvailable) {
-            setSelectedSeat(selecionado)
+            setSelectedSeatColor(selecionado);
         } else {
-            setSelectedSeat(indisponivel)
+            setSelectedSeatColor(indisponivel);
         }
     }
 
@@ -17,7 +23,7 @@ export default function SeatsComponent({ seat }) {
         <SeatItem
             key={seat.name}
             onClick={() => seatClick(seat)}
-            selectedSeat={selectedSeat}
+            selectedSeatColor={selectedSeatColor}
             isAvailable={seat.isAvailable}
         >
             {seat.name}
@@ -26,8 +32,8 @@ export default function SeatsComponent({ seat }) {
 }
 
 const SeatItem = styled.div`
-    border: 1px solid blue;         // Essa cor deve mudar
-    background-color: ${props => props.selectedSeat ? (props.isAvailable ? selecionado : indisponivel) : (props.isAvailable ? disponivel : indisponivel)};    // Essa cor deve mudar
+    border: 1px solid ${props => props.selectedSeatColor ? (props.isAvailable ? selecionadoBorda : indisponivelBorda) : (props.isAvailable ? disponivelBorda : indisponivelBorda)};
+    background-color: ${props => props.selectedSeatColor ? (props.isAvailable ? selecionado : indisponivel) : (props.isAvailable ? disponivel : indisponivel)};
     height: 25px;
     width: 25px;
     border-radius: 25px;
