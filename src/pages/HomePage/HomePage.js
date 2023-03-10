@@ -1,12 +1,8 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 
-export default function HomePage({ movies, setMovieId }) {
+export default function HomePage({ movies }) {
     const { id, title, posterURL, overview, releaseDate } = movies
-
-    function selectedMovie(idFilme) {
-        setMovieId(idFilme)
-    }
 
     return (
         <PageContainer>
@@ -16,7 +12,6 @@ export default function HomePage({ movies, setMovieId }) {
                     <MovieContainer>
                         <Link to={`/sessoes/${item.id}`}>
                             <img
-                                onClick={() => selectedMovie(item.id)}
                                 src={item.posterURL}
                                 alt={item.title}
                             />

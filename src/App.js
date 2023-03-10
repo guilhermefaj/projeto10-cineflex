@@ -11,13 +11,6 @@ import axios from "axios"
 export default function App() {
 
     const [movies, setMovies] = useState([])
-    const [movieId, setMovieId] = useState(null)
-    const [movieSession, setMovieSession] = useState([])
-
-    console.log("movies: ", movies)
-    console.log("movieId: ", movieId)
-    console.log("movieSession: ", movieSession)
-
 
     useEffect(() => {
         moviesList.then(resposta => {
@@ -29,22 +22,6 @@ export default function App() {
         })
     }, []);
 
-    useEffect(() => {
-        if (movieId) {
-            const moviesSessionsURL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`
-            const moviesSessions = axios.get(moviesSessionsURL);
-
-            moviesSessions.then(resposta => {
-                setMovieSession(resposta.data);
-                console.log("resposta API: ", resposta.data)
-            })
-
-            moviesSessions.catch(erro => {
-                console.log("erro seção:", erro.response.data)
-            })
-        }
-    }, [movieId]);
-
     return (
         <>
             <NavContainer>CINEFLEX</NavContainer>
@@ -55,15 +32,11 @@ export default function App() {
                         element={
                             <HomePage
                                 movies={movies}
-                                setMovieId={setMovieId}
                             />}
                     />
                     <Route
                         path="/sessoes/:movieId"
-                        element={
-                            <SessionsPage
-                                movieSession={movieSession}
-                            />}
+                        element={<SessionsPage />}
                     />
                     <Route
                         path="/assentos/240"
