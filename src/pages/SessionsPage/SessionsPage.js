@@ -25,6 +25,7 @@ export default function SessionsPage() {
                 {movie.days.map((filme) => (
                     <div>
                         <SessionsComponent
+                            key={filme.id}
                             filme={filme} />
                     </div>
                 ))}

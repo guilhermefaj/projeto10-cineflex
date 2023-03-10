@@ -2,9 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import { selecionado, selecionadoBorda, disponivel, disponivelBorda, indisponivel, indisponivelBorda } from "../../constants";
+import SeatsComponent from "./SeatsComponent";
 
 export default function SeatsPage() {
     const [session, setSession] = useState(undefined)
+
     const { idSessao } = useParams();
 
     useEffect(() => {
@@ -14,6 +17,8 @@ export default function SeatsPage() {
         promise.then(res => setSession(res.data))
         promise.catch(console.log(err => console.log("erro: ", err.response.data)))
     }, [])
+
+
 
     if (session === undefined) {
         return <div>carregando...</div>
@@ -25,7 +30,9 @@ export default function SeatsPage() {
 
             <SeatsContainer>
                 {session.seats.map((seat) => (
-                    <SeatItem>{seat.name}</SeatItem>
+                    <SeatsComponent
+                        seat={seat}
+                    />
                 ))
 
                 }
@@ -128,19 +135,6 @@ const CaptionItem = styled.div`
     flex-direction: column;
     align-items: center;
     font-size: 12px;
-`
-const SeatItem = styled.div`
-    border: 1px solid blue;         // Essa cor deve mudar
-    background-color: lightblue;    // Essa cor deve mudar
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    font-family: 'Roboto';
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
 `
 const FooterContainer = styled.div`
     width: 100%;
