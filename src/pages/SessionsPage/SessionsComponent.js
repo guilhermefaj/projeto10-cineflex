@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function SessionsComponent(props) {
@@ -9,8 +10,12 @@ export default function SessionsComponent(props) {
         < SessionContainer >
             {filme.weekday} - {filme.date}
             < ButtonsContainer >
-                <button>{filme.showtimes[0].name}</button>
-                <button>{filme.showtimes[1].name}</button>
+                <Link to={`/assentos/${filme.showtimes[0].id}`}>
+                    <button>{filme.showtimes[0].name}</button>
+                </Link>
+                <Link to={`/assentos/${filme.showtimes[1].id}`}>
+                    <button>{filme.showtimes[1].name}</button>
+                </Link>
             </ButtonsContainer >
         </SessionContainer >
     )
@@ -34,5 +39,6 @@ const ButtonsContainer = styled.div`
     }
     a {
         text-decoration: none;
+        display:flex;
     }
 `

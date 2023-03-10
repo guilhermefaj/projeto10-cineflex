@@ -6,7 +6,6 @@ import SuccessPage from "./pages/SuccessPage/SuccessPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { moviesList } from "./services/UserService"
-import axios from "axios"
 
 export default function App() {
 
@@ -35,11 +34,11 @@ export default function App() {
                             />}
                     />
                     <Route
-                        path="/sessoes/:movieId"
+                        path="/sessoes/:idFilme"
                         element={<SessionsPage />}
                     />
                     <Route
-                        path="/assentos/240"
+                        path="/assentos/:idSessao"
                         element={<SeatsPage />}
                     />
                     <Route

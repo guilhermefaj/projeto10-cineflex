@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components"
 import axios from "axios";
 import SessionsComponent from "./SessionsComponent";
 
 export default function SessionsPage() {
     const [movie, setMovie] = useState(undefined);
-    const { movieId } = useParams();
-
-    console.log("movie: ", movie)
-    console.log("movieId ", movieId)
+    const { idFilme } = useParams();
 
     useEffect(() => {
-        const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${movieId}/showtimes`
+        const url = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`
         const promise = axios.get(url);
 
         promise.then(res => setMovie(res.data))
