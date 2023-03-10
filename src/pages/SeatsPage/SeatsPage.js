@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import { selecionado, selecionadoBorda, disponivel, disponivelBorda, indisponivel, indisponivelBorda } from "../../constants";
+import CaptionComponent from "./CaptionComponent";
 import SeatsComponent from "./SeatsComponent";
 
 export default function SeatsPage() {
@@ -29,29 +29,11 @@ export default function SeatsPage() {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                {session.seats.map((seat) => (
-                    <SeatsComponent
-                        seat={seat}
-                    />
-                ))
-
-                }
+                {session.seats.map((seat) => (<SeatsComponent seat={seat} />))}
             </SeatsContainer>
 
-            <CaptionContainer>
-                <CaptionItem>
-                    <CaptionCircle text="Selecionado" />
-                    Selecionado
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle text="Disponível" />
-                    Disponível
-                </CaptionItem>
-                <CaptionItem>
-                    <CaptionCircle text="Indisponível" />
-                    Indisponível
-                </CaptionItem>
-            </CaptionContainer>
+            <CaptionComponent />
+
 
             <FormContainer>
                 Nome do Comprador:
@@ -112,52 +94,7 @@ const FormContainer = styled.div`
         width: calc(100vw - 60px);
     }
 `
-const CaptionContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 300px;
-    justify-content: space-between;
-    margin: 20px;
-`
-const CaptionCircle = styled.div`
-    border: 1px solid ${(props) => {
-        switch (props.text) {
-            case "Selecionado":
-                return selecionadoBorda;
-            case "Disponível":
-                return disponivelBorda;
-            case "Indisponível":
-                return indisponivelBorda;
-            default:
-                return disponivel;
-        }
-    }};
-    background-color: ${(props) => {
-        switch (props.text) {
-            case "Selecionado":
-                return selecionado;
-            case "Disponível":
-                return disponivel;
-            case "Indisponível":
-                return indisponivel;
-            default:
-                return disponivel;
-        }
-    }};
-    height: 25px;
-    width: 25px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 3px;
-`
-const CaptionItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-`
+
 const FooterContainer = styled.div`
     width: 100%;
     height: 120px;
