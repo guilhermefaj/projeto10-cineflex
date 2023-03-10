@@ -1,24 +1,41 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import CaptionComponent from "./CaptionComponent";
 import SeatsComponent from "./SeatsComponent";
 
 export default function SeatsPage() {
     const [session, setSession] = useState(undefined)
-
+    const [ids, setIds] = useState([])
+    const [name, setName] = useState("")
+    const [cpf, setCpf] = useState("")
     const { idSessao } = useParams();
+
+    const object = {
+        ids: ids,
+        name: name,
+        cpf: cpf
+    }
+
+    console.log("Object ", object)
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
         const promise = axios.get(url)
 
         promise.then(res => setSession(res.data))
-        promise.catch(console.log(err => console.log("erro: ", err.response.data)))
+        promise.catch(err => console.log("erro: ", err.response.data))
     }, [])
 
+    function sendData(event) {
+        event.preventDefault()
 
+        const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", object)
+
+        request.then(res => console.log(res.data))
+        request.catch(err => console.log(err.response.data))
+    }
 
     if (session === undefined) {
         return <div>carregando...</div>
@@ -29,20 +46,41 @@ export default function SeatsPage() {
             Selecione o(s) assento(s)
 
             <SeatsContainer>
-                {session.seats.map((seat) => (<SeatsComponent seat={seat} />))}
+                {session.seats.map((seat) => (
+                    <SeatsComponent
+                        key={seat.id}
+                        seat={seat}
+                        ids={ids}
+                        setIds={setIds}
+                    />
+                ))}
             </SeatsContainer>
 
             <CaptionComponent />
 
+            <FormContainer onSubmit={sendData}>
+                <label htmlFor="nome">Nome do Comprador</label>
+                <input
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome..."
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    required
+                />
 
-            <FormContainer>
-                Nome do Comprador:
-                <input placeholder="Digite seu nome..." />
-
-                CPF do Comprador:
-                <input placeholder="Digite seu CPF..." />
-
-                <button>Reservar Assento(s)</button>
+                <label htmlFor="CPF">CPF do Comprador</label>
+                <input
+                    id="CPF"
+                    name="CPF"
+                    placeholder="Digite seu CPF..."
+                    value={cpf}
+                    onChange={e => setCpf(e.target.value)}
+                    required
+                />
+                <Link>
+                    <button type="submit">Reservar Assento(s)</button>
+                </Link>
             </FormContainer>
 
             <FooterContainer>
@@ -80,7 +118,7 @@ const SeatsContainer = styled.div`
     justify-content: center;
     margin-top: 20px;
 `
-const FormContainer = styled.div`
+const FormContainer = styled.form`
     width: calc(100vw - 40px); 
     display: flex;
     flex-direction: column;

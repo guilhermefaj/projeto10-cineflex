@@ -2,11 +2,17 @@ import styled from "styled-components"
 import { useState } from "react"
 import { selecionado, selecionadoBorda, disponivel, disponivelBorda, indisponivel, indisponivelBorda } from "../../constants";
 
-export default function SeatsComponent({ seat }) {
+export default function SeatsComponent({ seat, ids, setIds }) {
     const [selectedSeatColor, setSelectedSeatColor] = useState(undefined)
 
-    console.log(selectedSeatColor)
     function seatClick(seat) {
+        if (ids.includes(seat.id)) {
+            const newIds = ids.filter((id) => id !== seat.id);
+            setIds(newIds);
+        } else {
+            setIds([...ids, seat.id]);
+        }
+
         if (selectedSeatColor !== undefined) {
             setSelectedSeatColor(undefined);
             return;
@@ -16,6 +22,7 @@ export default function SeatsComponent({ seat }) {
             setSelectedSeatColor(selecionado);
         } else {
             setSelectedSeatColor(indisponivel);
+            alert("Esse assento não está disponível");
         }
     }
 
