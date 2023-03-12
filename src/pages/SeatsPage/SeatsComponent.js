@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import { selecionado, selecionadoBorda, disponivel, disponivelBorda, indisponivel, indisponivelBorda } from "../../constants";
 
-export default function SeatsComponent({ seat, ids, setIds }) {
+export default function SeatsComponent({ seat, ids, setIds, sucess, setSucess }) {
     const [selectedSeatColor, setSelectedSeatColor] = useState(undefined)
 
     function seatClick(seat) {

@@ -10,6 +10,16 @@ import { moviesList } from "./services/UserService"
 export default function App() {
 
     const [movies, setMovies] = useState([])
+    const [sucess, setSucess] = useState({
+        objMovieName: "",
+        objMovieDate: "",
+        objMovieTime: "",
+        objSelectedSeats: [],
+        objName: "",
+        objCpf: ""
+    })
+
+    console.log("objeto sucesso: ", sucess)
 
     useEffect(() => {
         moviesList.then(resposta => {
@@ -39,11 +49,11 @@ export default function App() {
                     />
                     <Route
                         path="/assentos/:idSessao"
-                        element={<SeatsPage />}
+                        element={<SeatsPage sucess={sucess} setSucess={setSucess} />}
                     />
                     <Route
                         path="sucesso"
-                        element={<SuccessPage />}
+                        element={<SuccessPage sucess={sucess} setSucess={setSucess} />}
                     />
                 </Routes>
             </BrowserRouter>

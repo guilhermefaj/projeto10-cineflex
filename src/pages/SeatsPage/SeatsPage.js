@@ -6,7 +6,7 @@ import CaptionComponent from "./CaptionComponent";
 import SeatsComponent from "./SeatsComponent";
 
 
-export default function SeatsPage() {
+export default function SeatsPage({ sucess, setSucess }) {
     const [session, setSession] = useState(undefined);
     const [ids, setIds] = useState([]);
     const [name, setName] = useState("");
@@ -14,17 +14,27 @@ export default function SeatsPage() {
     const { idSessao } = useParams();
     const navigate = useNavigate();
 
-    const object = {
-        ids: ids,
-        name: name,
-        cpf: cpf
-    }
+    const object = { ids, name, cpf }
+
+    const seatNumber = ids.map(id => {
+        const seatObj = session.seats.find(seat => seat.id === id);
+        return seatObj.name;
+    })
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
         const promise = axios.get(url)
 
-        promise.then(res => setSession(res.data))
+        promise.then(res => {
+            setSucess({
+                ...sucess,
+                objMovieDate: res.data.day.date,
+                objMovieName: res.data.movie.title,
+                objMovieTime: res.data.name
+            })
+            console.log(res.data)
+            setSession(res.data)
+        })
         promise.catch(err => console.log("erro: ", err.response.data))
     }, [])
 
@@ -40,7 +50,13 @@ export default function SeatsPage() {
         const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", object)
 
         request.then(res => {
-            navigate('/sucesso')
+            setSucess({
+                ...sucess,
+                objCpf: object.cpf,
+                objName: object.name,
+                objSelectedSeats: seatNumber
+            });
+            navigate('/sucesso');
         })
         request.catch(err => console.log(err.response.data))
     }
@@ -60,6 +76,8 @@ export default function SeatsPage() {
                         seat={seat}
                         ids={ids}
                         setIds={setIds}
+                        sucess={sucess}
+                        setSucess={setSucess}
                     />
                 ))}
             </SeatsContainer>
