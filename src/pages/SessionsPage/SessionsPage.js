@@ -23,7 +23,7 @@ export default function SessionsPage() {
             <PageContainer>
                 Selecione o horário
                 {movie.days.map((filme) => (
-                    <div>
+                    <div key={filme.id}>
                         <SessionsComponent
                             key={filme.id}
                             filme={filme} />
