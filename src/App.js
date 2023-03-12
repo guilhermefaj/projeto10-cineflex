@@ -19,8 +19,6 @@ export default function App() {
         objCpf: ""
     })
 
-    console.log("objeto sucesso: ", sucess)
-
     useEffect(() => {
         moviesList.then(resposta => {
             setMovies(resposta.data);
