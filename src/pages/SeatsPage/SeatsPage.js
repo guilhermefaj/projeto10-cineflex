@@ -32,7 +32,6 @@ export default function SeatsPage({ sucess, setSucess }) {
                 objMovieName: res.data.movie.title,
                 objMovieTime: res.data.name
             })
-            console.log(res.data)
             setSession(res.data)
         })
         promise.catch(err => console.log("erro: ", err.response.data))
@@ -42,7 +41,6 @@ export default function SeatsPage({ sucess, setSucess }) {
         event.preventDefault()
 
         if (ids.length === 0) {
-            console.log("ids:", ids)
             alert("Você deve selecionar pelo menos um assento");
             return;
         }
@@ -87,6 +85,7 @@ export default function SeatsPage({ sucess, setSucess }) {
             <FormContainer onSubmit={sendData}>
                 <label htmlFor="nome">Nome do Comprador</label>
                 <input
+                    data-test="client-name"
                     id="nome"
                     name="nome"
                     placeholder="Digite seu nome..."
@@ -97,6 +96,7 @@ export default function SeatsPage({ sucess, setSucess }) {
 
                 <label htmlFor="CPF">CPF do Comprador</label>
                 <input
+                    data-test="client-cpf"
                     id="CPF"
                     name="CPF"
                     placeholder="Digite seu CPF..."
@@ -104,10 +104,10 @@ export default function SeatsPage({ sucess, setSucess }) {
                     onChange={e => setCpf(e.target.value)}
                     required
                 />
-                <button type="submit">Reservar Assento(s)</button>
+                <button data-test="book-seat-btn" type="submit">Reservar Assento(s)</button>
             </FormContainer>
 
-            <FooterContainer>
+            <FooterContainer data-test="footer">
                 <div>
                     <img src={session.movie.posterURL} alt={session.movie.title} />
                 </div>

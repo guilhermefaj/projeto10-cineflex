@@ -14,26 +14,26 @@ export default function SuccessPage({ sucess, setSucess }) {
         <PageContainer>
             <h1>Pedido feito <br /> com sucesso!</h1>
 
-            <TextContainer>
+            <TextContainer data-test="movie-info">
                 <strong><p>Filme e sessão</p></strong>
                 <p>{objMovieName}</p>
                 <p>{objMovieDate} - {objMovieTime}</p>
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="seats-info">
                 <strong><p>Ingressos</p></strong>
                 {objSelectedSeats.map(seat => (
                     <p key={seat}>Assento {seat}</p>
                 ))}
             </TextContainer>
 
-            <TextContainer>
+            <TextContainer data-test="client-info">
                 <strong><p>Comprador</p></strong>
                 <p>Nome: {objName}</p>
                 <p>CPF: {objCpf}</p>
             </TextContainer>
 
-            <button onClick={backHome}>Voltar para Home</button>
+            <button data-test="go-home-btn" onClick={backHome}>Voltar para Home</button>
         </PageContainer>
     )
 }

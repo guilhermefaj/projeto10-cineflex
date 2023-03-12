@@ -3,18 +3,16 @@ import styled from "styled-components"
 
 export default function SessionsComponent(props) {
     const { filme } = props
-    console.log("filme:", filme)
-
 
     return (
-        < SessionContainer>
+        < SessionContainer data-test="movie-day">
             {filme.weekday} - {filme.date}
             < ButtonsContainer>
                 <Link to={`/assentos/${filme.showtimes[0].id}`}>
-                    <button>{filme.showtimes[0].name}</button>
+                    <button data-test="showtime">{filme.showtimes[0].name}</button>
                 </Link>
                 <Link to={`/assentos/${filme.showtimes[1].id}`}>
-                    <button>{filme.showtimes[1].name}</button>
+                    <button data-test="showtime">{filme.showtimes[1].name}</button>
                 </Link>
             </ButtonsContainer >
         </SessionContainer >

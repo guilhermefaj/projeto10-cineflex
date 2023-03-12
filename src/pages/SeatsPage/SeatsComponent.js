@@ -28,6 +28,7 @@ export default function SeatsComponent({ seat, ids, setIds, sucess, setSucess })
 
     return (
         <SeatItem
+            data-test="seat"
             key={seat.name}
             onClick={() => seatClick(seat)}
             selectedSeatColor={selectedSeatColor}
