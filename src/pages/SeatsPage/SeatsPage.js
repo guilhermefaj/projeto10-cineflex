@@ -1,24 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import CaptionComponent from "./CaptionComponent";
 import SeatsComponent from "./SeatsComponent";
 
+
 export default function SeatsPage() {
-    const [session, setSession] = useState(undefined)
-    const [ids, setIds] = useState([])
-    const [name, setName] = useState("")
-    const [cpf, setCpf] = useState("")
+    const [session, setSession] = useState(undefined);
+    const [ids, setIds] = useState([]);
+    const [name, setName] = useState("");
+    const [cpf, setCpf] = useState("");
     const { idSessao } = useParams();
+    const navigate = useNavigate();
 
     const object = {
         ids: ids,
         name: name,
         cpf: cpf
     }
-
-    console.log("Object ", object)
 
     useEffect(() => {
         const url = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
@@ -31,18 +31,17 @@ export default function SeatsPage() {
     function sendData(event) {
         event.preventDefault()
 
-        console.log("ids:", ids)
-
         if (ids.length === 0) {
             console.log("ids:", ids)
             alert("Você deve selecionar pelo menos um assento");
             return;
         }
 
-
         const request = axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", object)
 
-        request.then(res => console.log(res.data))
+        request.then(res => {
+            navigate('/sucesso')
+        })
         request.catch(err => console.log(err.response.data))
     }
 
@@ -87,9 +86,7 @@ export default function SeatsPage() {
                     onChange={e => setCpf(e.target.value)}
                     required
                 />
-                <Link>
-                    <button type="submit">Reservar Assento(s)</button>
-                </Link>
+                <button type="submit">Reservar Assento(s)</button>
             </FormContainer>
 
             <FooterContainer>
